@@ -33,6 +33,35 @@
             z-index: -1;
         }
 
+        .nav-menu {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 10px 20px;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-item {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
         .profile-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -45,6 +74,124 @@
             position: relative;
             color: white;
             z-index: 10;
+            display: block;
+        }
+
+        .zalgo-generator {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 500px;
+            max-width: 90vw;
+            position: relative;
+            color: white;
+            z-index: 10;
+            display: none;
+        }
+
+        .zalgo-title {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .zalgo-input-group {
+            margin-bottom: 20px;
+        }
+
+        .zalgo-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .zalgo-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+        }
+
+        .zalgo-slider-group {
+            margin-bottom: 15px;
+        }
+
+        .zalgo-slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .zalgo-slider {
+            flex: 1;
+            height: 5px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .zalgo-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+        }
+
+        .zalgo-value {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .zalgo-checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .zalgo-checkbox {
+            width: 18px;
+            height: 18px;
+            accent-color: white;
+        }
+
+        .zalgo-button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .zalgo-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .zalgo-output {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            min-height: 80px;
+            word-break: break-all;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .profile-image {
@@ -128,26 +275,28 @@
             margin-right: 5px;
         }
 
-        /* Красивая плашка др */
+        /* Обновленная плашка др в стиле сайта */
         .birthday-tooltip {
             position: absolute;
             bottom: 120%;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: rgba(88, 88, 88, 0.788);
+            backdrop-filter: blur(15px);
             color: white;
-            padding: 15px 20px;
+            padding: 20px 25px;
             border-radius: 15px;
             font-size: 14px;
             font-weight: 500;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
             z-index: 1000;
-            min-width: 200px;
+            min-width: 220px;
             text-align: center;
             pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         .birthday-tooltip::before {
@@ -157,7 +306,7 @@
             left: 50%;
             transform: translateX(-50%);
             border: 8px solid transparent;
-            border-top-color: #667eea;
+            border-top-color: rgba(255, 255, 255, 0.25);
         }
 
         .birthday-container:hover .birthday-tooltip {
@@ -168,9 +317,17 @@
 
         .days-count {
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
             display: block;
-            margin-top: 5px;
+            margin-top: 8px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .birthday-text {
+            color: rgba(255, 255, 255, 0.925);
+            font-size: 15px;
+            line-height: 1.4;
         }
 
         .social-links {
@@ -208,9 +365,13 @@
         .social-link.github:hover { background: #333333; }
 
         @media (max-width: 768px) {
-            .profile-card {
+            .profile-card, .zalgo-generator {
                 width: 280px;
                 padding: 30px 20px;
+            }
+            
+            .zalgo-generator {
+                width: 90vw;
             }
             
             .social-links {
@@ -222,13 +383,34 @@
                 height: 45px;
                 font-size: 18px;
             }
+            
+            .nav-menu {
+                top: 10px;
+                padding: 8px 15px;
+            }
+            
+            .nav-item {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+            
+            .birthday-tooltip {
+                min-width: 200px;
+                padding: 15px 20px;
+                font-size: 13px;
+            }
         }
     </style>
 </head>
 <body>
     <canvas id="networkCanvas"></canvas>
     
-    <div class="profile-card">
+    <div class="nav-menu">
+        <a href="#" class="nav-item active" data-page="bio">BIO</a>
+        <a href="#" class="nav-item" data-page="zalgo">zalgo generator</a>
+    </div>
+    
+    <div class="profile-card" id="bio-page">
         <div class="profile-image">
             <img src="https://avatars.githubusercontent.com/u/225706764?s=400&u=91aa207204a3307c4c28925c1dabc75d2f416b3a&v=4" alt="Profile Picture">
             <div class="telegram-icon">
@@ -242,8 +424,10 @@
             <div class="birthday-container">
                 <i class="fas fa-birthday-cake"></i> 24.01
                 <div class="birthday-tooltip">
-                    День рождения через
-                    <span class="days-count" id="days-count">0</span> дней
+                    <div class="birthday-text">
+                        День рождения через
+                        <span class="days-count" id="days-count">0</span> дней
+                    </div>
                 </div>
             </div>
         </div>
@@ -252,15 +436,60 @@
             <a href="https://t.me/treffb" class="social-link telegram">
                 <i class="fab fa-telegram-plane"></i>
             </a>
+            <a href="https://vk.com/m3_ows" class="social-link telegram">
+                <i class="fab fa-vk"></i>
+            </a>
             <a href="https://discordapp.com/users/1051776643636674580/" class="social-link discord">
                 <i class="fab fa-discord"></i>
-            </a>
-            <a href="https://www.tiktok.com/@deadinside939" class="social-link tiktok">
-                <i class="fab fa-tiktok"></i>
             </a>
             <a href="https://github.com/koteey" class="social-link github">
                 <i class="fab fa-github"></i>
             </a>
+        </div>
+    </div>
+
+    <div class="zalgo-generator" id="zalgo-page">
+        <h2 class="zalgo-title">Zalgo Text Generator</h2>
+        
+        <div class="zalgo-input-group">
+            <label for="zalgo-input">Введите текст:</label>
+            <input type="text" id="zalgo-input" class="zalgo-input" placeholder="Введите текст для преобразования...">
+        </div>
+        
+        <div class="zalgo-slider-group">
+            <label>Интенсивность сверху:</label>
+            <div class="zalgo-slider-container">
+                <input type="range" min="0" max="10" value="3" class="zalgo-slider" id="intensity-up">
+                <span class="zalgo-value" id="intensity-up-value">3</span>
+            </div>
+        </div>
+        
+        <div class="zalgo-slider-group">
+            <label>Интенсивность по центру:</label>
+            <div class="zalgo-slider-container">
+                <input type="range" min="0" max="10" value="2" class="zalgo-slider" id="intensity-mid">
+                <span class="zalgo-value" id="intensity-mid-value">2</span>
+            </div>
+        </div>
+        
+        <div class="zalgo-slider-group">
+            <label>Интенсивность снизу:</label>
+            <div class="zalgo-slider-container">
+                <input type="range" min="0" max="10" value="3" class="zalgo-slider" id="intensity-down">
+                <span class="zalgo-value" id="intensity-down-value">3</span>
+            </div>
+        </div>
+        
+        <div class="zalgo-checkbox-group">
+            <input type="checkbox" id="randomize" class="zalgo-checkbox" checked>
+            <label for="randomize">Случайный порядок символов</label>
+        </div>
+        
+        <button class="zalgo-button" id="generate-zalgo">Сгенерировать Zalgo текст</button>
+        <button class="zalgo-button" id="copy-zalgo">Скопировать в буфер обмена</button>
+        
+        <div class="zalgo-output" id="zalgo-output">
+            Результат появится здесь...
         </div>
     </div>
 
@@ -272,14 +501,12 @@
                 this.canvas = document.getElementById('networkCanvas');
                 this.ctx = this.canvas.getContext('2d');
                 this.particles = [];
-                this.initialParticlesCreated = false; // Флаг для отслеживания начального создания
                 
                 // === НАСТРОЙКИ ===
-                this.initialParticleCount = 600;      // Количество частиц при загрузке страницы
-                this.particleSpawnRate = 5;           // Частота появления новых частиц из краев (частиц за кадр)
-                this.maxParticles = 600;              // Максимальное количество частиц
-                this.particleSpeed = 0.100;             // Скорость частиц (чем больше, тем быстрее)
-                this.particleSize = 1.5;                // Размер частиц
+                this.maxParticles = this.isMobileDevice() ? 100 : 200;
+                this.particleSpawnRate = this.isMobileDevice() ? 4 : 8;
+                this.particleSpeed = 2;
+                this.particleSize = 3;
                 // =================
                 
                 this.connectionDistance = 150;
@@ -290,72 +517,31 @@
                 this.setupEventListeners();
             }
             
+            // Более точное определение мобильных устройств
+            isMobileDevice() {
+                return window.innerWidth <= 768 || 
+                       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            }
+            
             init() {
                 this.resize();
-                this.createInitialParticles(); // Создаем начальные частицы
                 window.addEventListener('resize', () => this.resize());
             }
             
             resize() {
                 this.canvas.width = window.innerWidth;
                 this.canvas.height = window.innerHeight;
-                
-                // Адаптация максимального количества частиц под размер экрана
-                const screenWidth = window.innerWidth;
-                if (screenWidth < 768) {
-                    this.initialParticleCount = 50;   // Для телефонов
-                    this.maxParticles = 80;           // Для телефонов
-                } else if (screenWidth < 1024) {
-                    this.initialParticleCount = 80;   // Для планшетов
-                    this.maxParticles = 150;          // Для планшетов
-                } else {
-                    this.initialParticleCount = 300;  // Для десктопов
-                    this.maxParticles = 350;          // Для десктопов
-                }
-                
-                // Пересоздаем начальные частицы при изменении размера
-                if (!this.initialParticlesCreated) {
-                    this.createInitialParticles();
-                }
+                // Обновляем настройки при изменении размера
+                this.maxParticles = this.isMobileDevice() ? 100 : 200;
+                this.particleSpawnRate = this.isMobileDevice() ? 4 : 8;
             }
             
-            // Создание начальных частиц, равномерно распределенных по экрану
-            createInitialParticles() {
-                this.particles = [];
-                for (let i = 0; i < this.initialParticleCount; i++) {
-                    this.particles.push(this.createRandomParticle());
-                }
-                this.initialParticlesCreated = true;
-            }
-            
-            // Создание частицы в случайном месте на экране
-            createRandomParticle() {
-                // Random particle type
-                const types = ['circle', 'star', 'square'];
-                const type = types[Math.floor(Math.random() * types.length)];
-                
-                // Random size
-                const size = Math.random() * this.particleSize + 1;
-                
-                // Random speed and direction
-                const speed = Math.random() * this.particleSpeed + 0.5;
-                const angle = Math.random() * Math.PI * 2;
-                
-                return {
-                    x: Math.random() * this.canvas.width,
-                    y: Math.random() * this.canvas.height,
-                    size: size,
-                    speedX: Math.cos(angle) * speed,
-                    speedY: Math.sin(angle) * speed,
-                    color: `rgba(255, 255, 255, ${Math.random() * 0.7 + 0.3})`,
-                    type: type
-                };
-            }
-            
-            // Создание частицы из края экрана
+            // Создание частицы из края экрана, направленной к центру
             spawnParticleFromEdge() {
                 const side = Math.floor(Math.random() * 4);
                 let x, y;
+                let targetX = this.canvas.width / 2;
+                let targetY = this.canvas.height / 2;
                 
                 switch(side) {
                     case 0: // Top
@@ -376,35 +562,42 @@
                         break;
                 }
                 
+                // Вычисляем направление к центру
+                let dx = targetX - x;
+                let dy = targetY - y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                
+                // Нормализуем вектор направления
+                dx /= distance;
+                dy /= distance;
+                
                 // Random particle type
                 const types = ['circle', 'star', 'square'];
                 const type = types[Math.floor(Math.random() * types.length)];
                 
-                // Random size
+                // Random size and speed with some variation
                 const size = Math.random() * this.particleSize + 1;
-                
-                // Random speed
-                const speed = Math.random() * this.particleSpeed + 0.5;
-                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * this.particleSpeed + 1;
                 
                 return {
                     x: x,
                     y: y,
                     size: size,
-                    speedX: Math.cos(angle) * speed,
-                    speedY: Math.sin(angle) * speed,
+                    startSize: size, // Сохраняем начальный размер
+                    speedX: dx * speed,
+                    speedY: dy * speed,
                     color: `rgba(255, 255, 255, ${Math.random() * 0.7 + 0.3})`,
-                    type: type
+                    type: type,
+                    life: 1.0, // Полная "жизнь" частицы
+                    distanceToCenter: distance // Начальное расстояние до центра
                 };
             }
             
             updateParticles() {
-                // Spawn new particles from edges (только если уже созданы начальные частицы)
-                if (this.initialParticlesCreated) {
-                    for(let i = 0; i < this.particleSpawnRate; i++) {
-                        if(this.particles.length < this.maxParticles) {
-                            this.particles.push(this.spawnParticleFromEdge());
-                        }
+                // Spawn new particles from edges
+                for(let i = 0; i < this.particleSpawnRate; i++) {
+                    if(this.particles.length < this.maxParticles) {
+                        this.particles.push(this.spawnParticleFromEdge());
                     }
                 }
                 
@@ -416,8 +609,24 @@
                     particle.x += particle.speedX;
                     particle.y += particle.speedY;
                     
-                    // Remove particles that are out of screen
-                    if(particle.x < -50 || particle.x > this.canvas.width + 50 ||
+                    // Calculate current distance to center
+                    const centerX = this.canvas.width / 2;
+                    const centerY = this.canvas.height / 2;
+                    const dx = centerX - particle.x;
+                    const dy = centerY - particle.y;
+                    const currentDistance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    // Уменьшаем размер по мере приближения к центру
+                    particle.life = currentDistance / particle.distanceToCenter;
+                    particle.size = particle.startSize * particle.life;
+                    
+                    // Уменьшаем прозрачность по мере приближения к центру
+                    const alpha = particle.life * 0.7;
+                    particle.color = particle.color.replace(/[\d\.]+\)$/g, `${alpha})`);
+                    
+                    // Remove particles that are close to center or out of screen
+                    if(particle.life < 0.1 || 
+                       particle.x < -50 || particle.x > this.canvas.width + 50 ||
                        particle.y < -50 || particle.y > this.canvas.height + 50) {
                         this.particles.splice(i, 1);
                         continue;
@@ -465,8 +674,9 @@
             }
             
             drawParticles() {
-                // Clear canvas
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                // Clear canvas with slight fade effect
+                this.ctx.fillStyle = 'rgba(18, 18, 18, 0.1)';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                 
                 // Draw connections
                 for (let i = 0; i < this.particles.length; i++) {
@@ -476,11 +686,11 @@
                         let distance = Math.sqrt(dx * dx + dy * dy);
                         
                         if (distance < this.connectionDistance) {
-                            let opacity = 1 - (distance / this.connectionDistance);
+                            let opacity = (1 - (distance / this.connectionDistance)) * 0.3;
                             this.ctx.beginPath();
                             this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
                             this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
-                            this.ctx.strokeStyle = `rgba(255, 255, 255, ${opacity * 0.3})`;
+                            this.ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
                             this.ctx.lineWidth = 1;
                             this.ctx.stroke();
                         }
@@ -540,6 +750,60 @@
             return diffDays;
         }
 
+        // Zalgo text generation
+        const zalgoUp = [
+            '\u030d', '\u030e', '\u0304', '\u0305', '\u033f', '\u0311', '\u0306', '\u0310', 
+            '\u0352', '\u0357', '\u0351', '\u0307', '\u0308', '\u030a', '\u0342', '\u0343',
+            '\u0344', '\u034a', '\u034b', '\u034c', '\u0303', '\u0302', '\u030c', '\u0350',
+            '\u0300', '\u0301', '\u030b', '\u030f', '\u0312', '\u0313', '\u0314', '\u033d',
+            '\u0309', '\u0363', '\u0364', '\u0365', '\u0366', '\u0367', '\u0368', '\u0369',
+            '\u036a', '\u036b', '\u036c', '\u036d', '\u036e', '\u036f', '\u033e', '\u035b',
+            '\u0346', '\u031a'
+        ];
+
+        const zalgoMid = [
+            '\u0315', '\u031b', '\u0340', '\u0341', '\u0358', '\u0321', '\u0322', '\u0327',
+            '\u0328', '\u0334', '\u0335', '\u0336', '\u034f', '\u035c', '\u035d', '\u035e',
+            '\u035f', '\u0360', '\u0362', '\u0338', '\u0337', '\u0361', '\u0489'
+        ];
+
+        const zalgoDown = [
+            '\u0316', '\u0317', '\u0318', '\u0319', '\u031c', '\u031d', '\u031e', '\u031f',
+            '\u0320', '\u0324', '\u0325', '\u0326', '\u0329', '\u032a', '\u032b', '\u032c',
+            '\u032d', '\u032e', '\u032f', '\u0330', '\u0331', '\u0332', '\u0333', '\u0339',
+            '\u033a', '\u033b', '\u033c', '\u0345', '\u0347', '\u0348', '\u0349', '\u034d',
+            '\u034e', '\u0353', '\u0354', '\u0355', '\u0356', '\u0359', '\u035a', '\u0323'
+        ];
+
+        function generateZalgo(text, options) {
+            let result = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                result += char;
+                
+                // Add zalgo characters above
+                for (let j = 0; j < options.intensityUp; j++) {
+                    let randIndex = Math.floor(Math.random() * zalgoUp.length);
+                    result += zalgoUp[randIndex];
+                }
+                
+                // Add zalgo characters in the middle
+                for (let j = 0; j < options.intensityMid; j++) {
+                    let randIndex = Math.floor(Math.random() * zalgoMid.length);
+                    result += zalgoMid[randIndex];
+                }
+                
+                // Add zalgo characters below
+                for (let j = 0; j < options.intensityDown; j++) {
+                    let randIndex = Math.floor(Math.random() * zalgoDown.length);
+                    result += zalgoDown[randIndex];
+                }
+            }
+            
+            return result;
+        }
+
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             new NetworkBackground();
@@ -548,12 +812,101 @@
             const daysCountElement = document.getElementById('days-count');
             const daysUntil = calculateDaysUntilBirthday();
             daysCountElement.textContent = daysUntil;
+
+            // Navigation
+            const navItems = document.querySelectorAll('.nav-item');
+            const bioPage = document.getElementById('bio-page');
+            const zalgoPage = document.getElementById('zalgo-page');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Update active nav item
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // Show corresponding page
+                    const page = item.getAttribute('data-page');
+                    if (page === 'bio') {
+                        bioPage.style.display = 'block';
+                        zalgoPage.style.display = 'none';
+                    } else if (page === 'zalgo') {
+                        bioPage.style.display = 'none';
+                        zalgoPage.style.display = 'block';
+                    }
+                });
+            });
+
+            // Zalgo generator functionality
+            const zalgoInput = document.getElementById('zalgo-input');
+            const intensityUp = document.getElementById('intensity-up');
+            const intensityMid = document.getElementById('intensity-mid');
+            const intensityDown = document.getElementById('intensity-down');
+            const intensityUpValue = document.getElementById('intensity-up-value');
+            const intensityMidValue = document.getElementById('intensity-mid-value');
+            const intensityDownValue = document.getElementById('intensity-down-value');
+            const randomizeCheckbox = document.getElementById('randomize');
+            const generateButton = document.getElementById('generate-zalgo');
+            const copyButton = document.getElementById('copy-zalgo');
+            const zalgoOutput = document.getElementById('zalgo-output');
+            
+            // Update slider values
+            intensityUp.addEventListener('input', () => {
+                intensityUpValue.textContent = intensityUp.value;
+            });
+            
+            intensityMid.addEventListener('input', () => {
+                intensityMidValue.textContent = intensityMid.value;
+            });
+            
+            intensityDown.addEventListener('input', () => {
+                intensityDownValue.textContent = intensityDown.value;
+            });
+            
+            // Generate zalgo text
+            generateButton.addEventListener('click', () => {
+                const text = zalgoInput.value.trim();
+                if (!text) {
+                    zalgoOutput.textContent = 'Пожалуйста, введите текст для преобразования';
+                    return;
+                }
+                
+                const options = {
+                    intensityUp: parseInt(intensityUp.value),
+                    intensityMid: parseInt(intensityMid.value),
+                    intensityDown: parseInt(intensityDown.value),
+                    randomize: randomizeCheckbox.checked
+                };
+                
+                const zalgoText = generateZalgo(text, options);
+                zalgoOutput.textContent = zalgoText;
+            });
+            
+            // Copy to clipboard
+            copyButton.addEventListener('click', () => {
+                const text = zalgoOutput.textContent;
+                if (text && text !== 'Результат появится здесь...') {
+                    navigator.clipboard.writeText(text)
+                        .then(() => {
+                            const originalText = copyButton.textContent;
+                            copyButton.textContent = 'Скопировано!';
+                            setTimeout(() => {
+                                copyButton.textContent = originalText;
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            console.error('Ошибка копирования: ', err);
+                            zalgoOutput.textContent = 'Ошибка копирования в буфер обмена';
+                        });
+                }
+            });
         });
 
         // Avatar Hover Effect
         const profileImage = document.querySelector('.profile-image');
         profileImage.addEventListener('click', () => {
-            window.location.href = 'https://t.me/treffb';
+            window.location.href = 'https://t.me/snowcoding';
         });
     </script>
 </body>
