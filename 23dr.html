@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>С Днём Рождения, Арина! 🎂</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    background: #0a0a0a;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Анимированный градиентный фон */
+.animated-bg {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, 
+        #0a0a0a 0%,
+        #1a0f1a 25%,
+        #2a142a 50%,
+        #1a0f1a 75%,
+        #0a0a0a 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 20s ease infinite;
+    z-index: -2;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Частицы */
+.particles {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(255, 100, 150, 0.6);
+    border-radius: 50%;
+    animation: floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+    to { transform: translateY(-100vh); }
+}
+
+/* контейнер */
+.heart-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+/* сердце с улучшенной анимацией */
+.heart {
+    position: absolute;
+    width: 55vmin;
+    height: 55vmin;
+    color: #ff2d75;
+    filter: 
+        drop-shadow(0 0 30px rgba(255, 45, 117, 0.8))
+        drop-shadow(0 0 60px rgba(255, 45, 117, 0.4));
+    z-index: 8;
+    animation: 
+        heartFlyIn 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+        gentleFloat 6s ease-in-out infinite 1.5s;
+    transform-style: preserve-3d;
+}
+
+.heart svg {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+/* Лепестки сакуры (падающие сверху) */
+.sakura-petals {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+    overflow: hidden;
+}
+
+.sakura-petal {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 200, 220, 0.9), rgba(255, 150, 180, 0.7) 50%, rgba(255, 100, 150, 0.5));
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(45deg);
+    filter: blur(0.5px);
+    opacity: 0.8;
+    top: -30px;
+    animation: sakuraFall linear infinite;
+}
+
+@keyframes sakuraFall {
+    0% {
+        transform: translateY(0) rotate(45deg) rotateX(0);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) rotate(45deg) rotateX(720deg);
+        opacity: 0;
+    }
+}
+
+/* поздравление (верхний текст) */
+.text {
+    position: absolute;
+    text-align: center;
+    max-width: 85%;
+    color: white;
+    font-size: clamp(20px, 3.5vw, 32px);
+    line-height: 1.6;
+    opacity: 0;
+    z-index: 10;
+    pointer-events: none;
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 20px rgba(255, 100, 150, 0.3);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.text-words {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Новый текст по центру */
+.center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-size: clamp(16px, 2.5vw, 24px);
+    line-height: 1.8;
+    max-width: 90%;
+    z-index: 9;
+    opacity: 0;
+    pointer-events: none;
+    text-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.8),
+        0 0 30px rgba(255, 100, 150, 0.5);
+    font-weight: 300;
+    animation: centerTextFadeIn 2s ease forwards 2.5s;
+}
+
+.center-text-line {
+    display: block;
+    margin-bottom: 15px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.center-text .italic {
+    font-style: italic;
+    font-size: 1.2em;
+    color: #ffccdd;
+    margin-top: 20px;
+    display: block;
+}
+
+@keyframes centerTextFadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes lineFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* пульсация текста */
+@keyframes textPulse {
+    0%, 100% { 
+        transform: scale(1);
+        text-shadow: 
+            0 0 10px rgba(255, 255, 255, 0.5),
+            0 0 20px rgba(255, 100, 150, 0.3);
+    }
+    50% { 
+        transform: scale(1.03);
+        text-shadow: 
+            0 0 15px rgba(255, 255, 255, 0.8),
+            0 0 30px rgba(255, 100, 150, 0.6),
+            0 0 40px rgba(255, 100, 150, 0.4);
+    }
+}
+
+/* пульсация сердца */
+@keyframes heartbeat {
+    0%   { transform: scale(1) rotate(0deg); }
+    10%  { transform: scale(1.25) rotate(1deg); }
+    20%  { transform: scale(1.08) rotate(-1deg); }
+    30%  { transform: scale(1.35) rotate(2deg); }
+    45%  { transform: scale(1) rotate(0deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* анимация "вылета" сердца с вращением */
+@keyframes heartFlyIn {
+    0% {
+        transform: scale(0.1) rotate(-180deg) translateZ(-500px);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.15) rotate(10deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* плавное покачивание */
+@keyframes gentleFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(0.5deg); }
+}
+
+/* волны вокруг сердца */
+.heart-wave {
+    position: absolute;
+    width: 55vmin;
+    height: 55vmin;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 7;
+    border-radius: 50%;
+    border: 2px solid;
+    border-color: rgba(255, 100, 150, 0.3);
+}
+
+/* вспышки */
+.flare {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 100, 150, 0.3), transparent 70%);
+    filter: blur(10px);
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+}
+
+/* блестки на сердце */
+.sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: sparkleTwinkle 2s ease-in-out infinite;
+    z-index: 9;
+}
+
+@keyframes sparkleTwinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Конфетти (падающее сверху) */
+.confetti {
+    position: fixed;
+    top: -20px;
+    width: 15px;
+    height: 15px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 4;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 1;
+    }
+    70% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg) translateX(var(--sway, 0px));
+        opacity: 0;
+    }
+}
+
+/* Индикатор клика */
+.click-hint {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    animation: hintPulse 2s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes hintPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="animated-bg"></div>
+<div class="particles" id="particles"></div>
+<div class="sakura-petals" id="sakuraPetals"></div>
+
+<div class="heart-container">
+
+    <div class="heart" id="heart">
+        <svg viewBox="0 0 32 29.6">
+            <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4
+            c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
+            fill="currentColor"/>
+        </svg>
+    </div>
+
+    <div class="text" id="birthdayText">
+        <span class="text-words">с днём рождения, арина.</span><br>
+        <span class="text-words">тебе сегодня 23.</span><br><br>
+        <span class="text-words">ты много лет рисуешь и делаешь это</span><br>
+        <span class="text-words">по-настоящему красиво.</span><br>
+        <span class="text-words">пусть вдохновение всегда остаётся с тобой 🤍</span>
+    </div>
+
+    <!-- Новый текст по центру -->
+    <div class="center-text" id="centerText">
+        <span class="center-text-line">с днём рождения, арина!</span>
+        <span class="center-text-line">я хочу пожелать тебе успехов в рисовании,</span>
+        <span class="center-text-line">и во всём принципе.</span>
+        <span class="center-text-line">сегодня тебе уже 23,</span>
+        <span class="center-text-line">но выглядишь всё ещё на 19!</span>
+        <span class="center-text-line">я хочу посвятить этот сайт тебе!</span>
+        <span class="italic">от артура🤍</span>
+    </div>
+
+</div>
+
+<div class="click-hint">Кликни для пульсации сердца ✨</div>
+
+<script>
+const heart = document.getElementById('heart');
+const text = document.getElementById('birthdayText');
+const textWords = document.querySelectorAll('.text-words');
+const centerTextLines = document.querySelectorAll('.center-text-line');
+const particlesContainer = document.getElementById('particles');
+const sakuraPetalsContainer = document.getElementById('sakuraPetals');
+
+// Создание частиц фона
+function createParticles() {
+    for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.width = `${Math.random() * 4 + 1}px`;
+        particle.style.height = particle.style.width;
+        particle.style.background = `rgba(255, ${Math.random() * 100 + 100}, ${Math.random() * 100 + 150}, ${Math.random() * 0.5 + 0.3})`;
+        particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Создание лепестков сакуры
+function createSakuraPetals() {
+    const petalCount = 30;
+    
+    for (let i = 0; i < petalCount; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'sakura-petal';
+        
+        // Распределение по углам и верху
+        let leftPos;
+        if (i < petalCount / 3) {
+            // Левый верхний угол
+            leftPos = Math.random() * 20;
+        } else if (i < 2 * petalCount / 3) {
+            // Правый верхний угол
+            leftPos = 80 + Math.random() * 20;
+        } else {
+            // Верхняя часть
+            leftPos = Math.random() * 100;
+        }
+        
+        petal.style.left = `${leftPos}%`;
+        petal.style.width = `${Math.random() * 15 + 20}px`;
+        petal.style.height = petal.style.width;
+        petal.style.background = `radial-gradient(circle at 30% 30%, 
+            rgba(${255 - Math.random() * 50}, ${200 - Math.random() * 50}, ${220 - Math.random() * 50}, 0.9),
+            rgba(255, ${150 + Math.random() * 50}, ${180 + Math.random() * 50}, 0.7) 50%,
+            rgba(255, ${100 + Math.random() * 50}, ${150 + Math.random() * 50}, 0.5))`;
+        petal.style.animationDuration = `${Math.random() * 10 + 10}s`;
+        petal.style.animationDelay = `${Math.random() * 5}s`;
+        petal.style.filter = `blur(${Math.random() * 0.5 + 0.3}px)`;
+        
+        sakuraPetalsContainer.appendChild(petal);
+    }
+}
+
+// Показ текста по словам (верхний текст)
+function showTextWithAnimation() {
+    text.style.animation = 'textFade 1s ease forwards';
+    
+    textWords.forEach((word, index) => {
+        setTimeout(() => {
+            word.style.animation = `wordFadeIn 1s ease forwards`;
+        }, 500 + index * 300);
+    });
+    
+    setTimeout(() => {
+        text.style.animation = 'textFade 1s ease forwards, textPulse 4s ease-in-out infinite 2s';
+    }, 500 + textWords.length * 300);
+}
+
+// Показ центрального текста по строкам
+function showCenterTextWithAnimation() {
+    centerTextLines.forEach((line, index) => {
+        setTimeout(() => {
+            line.style.animation = `lineFadeIn 1.5s ease forwards`;
+        }, 2500 + index * 400);
+    });
+}
+
+// Пульсация сердца с улучшенными эффектами
+function pulse() {
+    // Сброс анимации
+    heart.style.animation = 'none';
+    void heart.offsetWidth;
+    
+    // Запуск новой анимации
+    heart.style.animation = 'heartbeat 1.8s ease-in-out, gentleFloat 6s ease-in-out infinite';
+    
+    // Создание волн
+    for (let i = 0; i < 3; i++) {
+        setTimeout(() => createWave(), i * 200);
+    }
+    
+    // Создание вспышек
+    createFlares();
+    
+    // Создание блесток
+    createSparkles();
+    
+    // Запуск конфетти (падающих сверху)
+    createConfetti();
+}
+
+// Создание волны
+function createWave() {
+    const wave = document.createElement('div');
+    wave.className = 'heart-wave';
+    wave.style.borderColor = `rgba(255, ${Math.random() * 100 + 100}, ${Math.random() * 100 + 150}, 0.3)`;
+    
+    heart.parentElement.appendChild(wave);
+    
+    const anim = wave.animate([
+        { transform: 'scale(1)', opacity: 0.6, borderWidth: '2px' },
+        { transform: 'scale(2.5)', opacity: 0, borderWidth: '1px' }
+    ], {
+        duration: 2000,
+        easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)'
+    });
+    
+    anim.onfinish = () => wave.remove();
+}
+
+// Создание вспышек
+function createFlares() {
+    for (let i = 0; i < 5; i++) {
+        const flare = document.createElement('div');
+        flare.className = 'flare';
+        
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 150 + 50;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+        
+        flare.style.left = `calc(50% + ${x}px)`;
+        flare.style.top = `calc(50% + ${y}px)`;
+        flare.style.background = `radial-gradient(circle, rgba(255, ${Math.random() * 100 + 100}, ${Math.random() * 100 + 150}, 0.4), transparent 70%)`;
+        
+        document.querySelector('.heart-container').appendChild(flare);
+        
+        flare.animate([
+            { opacity: 0, transform: 'scale(0)' },
+            { opacity: 1, transform: 'scale(1)' },
+            { opacity: 0, transform: 'scale(0.5)' }
+        ], {
+            duration: 800,
+            easing: 'ease-out'
+        });
+        
+        setTimeout(() => flare.remove(), 800);
+    }
+}
+
+// Создание блесток на сердце
+function createSparkles() {
+    const heartRect = heart.getBoundingClientRect();
+    
+    for (let i = 0; i < 8; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        
+        sparkle.style.left = `${Math.random() * 80 + 10}%`;
+        sparkle.style.top = `${Math.random() * 80 + 10}%`;
+        sparkle.style.animationDelay = `${Math.random() * 1}s`;
+        sparkle.style.background = `rgba(255, ${Math.random() * 155 + 100}, ${Math.random() * 155 + 100}, 1)`;
+        
+        heart.appendChild(sparkle);
+        
+        setTimeout(() => {
+            sparkle.remove();
+        }, 2000);
+    }
+}
+
+// Создание конфетти (падающих сверху)
+function createConfetti() {
+    for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        
+        // Случайная позиция сверху
+        confetti.style.left = `${Math.random() * 100}%`;
+        
+        // Разные формы и цвета
+        const shapes = ['circle', 'square', 'triangle'];
+        const shape = shapes[Math.floor(Math.random() * shapes.length)];
+        
+        if (shape === 'circle') {
+            confetti.style.borderRadius = '50%';
+        } else if (shape === 'triangle') {
+            confetti.style.width = '0';
+            confetti.style.height = '0';
+            confetti.style.borderLeft = '8px solid transparent';
+            confetti.style.borderRight = '8px solid transparent';
+            confetti.style.borderBottom = `15px solid hsl(${Math.random() * 360}, 100%, 70%)`;
+            confetti.style.background = 'transparent';
+        } else {
+            confetti.style.borderRadius = '2px';
+        }
+        
+        if (shape !== 'triangle') {
+            confetti.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
+            confetti.style.width = `${Math.random() * 10 + 8}px`;
+            confetti.style.height = shape === 'circle' ? confetti.style.width : `${Math.random() * 5 + 5}px`;
+        }
+        
+        // Случайное качание при падении
+        const sway = (Math.random() - 0.5) * 100;
+        confetti.style.setProperty('--sway', `${sway}px`);
+        
+        document.body.appendChild(confetti);
+        
+        const anim = confetti.animate([
+            { 
+                transform: 'translateY(0) rotate(0deg) translateX(0)', 
+                opacity: 1 
+            },
+            { 
+                transform: `translateY(100vh) rotate(${Math.random() * 720}deg) translateX(${sway}px)`, 
+                opacity: 0 
+            }
+        ], {
+            duration: Math.random() * 3000 + 2000,
+            easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+        });
+        
+        anim.onfinish = () => confetti.remove();
+    }
+}
+
+// Клик по всему экрану
+document.addEventListener('click', (e) => {
+    // Эффект клика
+    const clickEffect = document.createElement('div');
+    clickEffect.style.position = 'fixed';
+    clickEffect.style.left = `${e.clientX}px`;
+    clickEffect.style.top = `${e.clientY}px`;
+    clickEffect.style.width = '0px';
+    clickEffect.style.height = '0px';
+    clickEffect.style.borderRadius = '50%';
+    clickEffect.style.background = 'radial-gradient(circle, rgba(255,100,150,0.6), transparent 70%)';
+    clickEffect.style.transform = 'translate(-50%, -50%)';
+    clickEffect.style.pointerEvents = 'none';
+    clickEffect.style.zIndex = '100';
+    
+    document.body.appendChild(clickEffect);
+    
+    clickEffect.animate([
+        { width: '0px', height: '0px', opacity: 1 },
+        { width: '200px', height: '200px', opacity: 0 }
+    ], {
+        duration: 800,
+        easing: 'ease-out'
+    });
+    
+    setTimeout(() => clickEffect.remove(), 800);
+    
+    // Анимация сердца с отскоком
+    heart.style.animation = 'none';
+    void heart.offsetWidth;
+    
+    // Маленький отскок при клике
+    heart.animate([
+        { transform: 'scale(1)' },
+        { transform: 'scale(0.9)' },
+        { transform: 'scale(1.1)' },
+        { transform: 'scale(1)' }
+    ], {
+        duration: 400,
+        easing: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)'
+    });
+    
+    // Запуск пульсации после отскока
+    setTimeout(() => {
+        pulse();
+    }, 400);
+});
+
+// Инициализация
+createParticles();
+createSakuraPetals();
+
+// Последовательность запуска анимаций
+setTimeout(() => {
+    showTextWithAnimation();
+}, 1500);
+
+// Показ центрального текста
+setTimeout(() => {
+    showCenterTextWithAnimation();
+}, 2500);
+
+// Первая пульсация
+setTimeout(() => {
+    pulse();
+    // Автоматические пульсации каждые 4 секунды
+    setInterval(pulse, 4000);
+}, 3000);
+
+// Подсказка исчезает после первого клика
+let firstClick = true;
+document.addEventListener('click', () => {
+    if (firstClick) {
+        document.querySelector('.click-hint').style.opacity = '0';
+        document.querySelector('.click-hint').style.transition = 'opacity 1s';
+        firstClick = false;
+    }
+});
+
+// Реакция на движение мыши
+document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    
+    text.style.transform = `translate(${x}px, ${y}px)`;
+    
+    // Центральный текст тоже слегка двигается
+    const centerText = document.getElementById('centerText');
+    centerText.style.transform = `translate(calc(-50% + ${x/2}px), calc(-50% + ${y/2}px))`;
+});
+
+// Реакция на наведение на сердце
+heart.addEventListener('mouseenter', () => {
+    heart.style.transform = 'scale(1.05)';
+    heart.style.transition = 'transform 0.3s ease';
+});
+
+heart.addEventListener('mouseleave', () => {
+    heart.style.transform = 'scale(1)';
+});
+
+// Добавление большего количества лепестков каждые 30 секунд
+setInterval(() => {
+    // Добавляем еще 10 лепестков
+    for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+            const petal = document.createElement('div');
+            petal.className = 'sakura-petal';
+            
+            let leftPos = Math.random() * 100;
+            petal.style.left = `${leftPos}%`;
+            petal.style.width = `${Math.random() * 15 + 20}px`;
+            petal.style.height = petal.style.width;
+            petal.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            
+            sakuraPetalsContainer.appendChild(petal);
+            
+            // Удаление после анимации
+            setTimeout(() => {
+                if (petal.parentNode) {
+                    petal.parentNode.removeChild(petal);
+                }
+            }, (Math.random() * 10 + 10) * 1000);
+        }, i * 300);
+    }
+}, 30000);
+</script>
+
+</body>
+</html>
