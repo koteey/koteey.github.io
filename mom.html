@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для мамы - самая лучшая!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #ffccd5; /* Розовый фон */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: #8a1c3a;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .petal {
+            position: absolute;
+            top: -50px;
+            width: 20px;
+            height: 30px;
+            background: linear-gradient(to right, #ff66a3, #ff3385);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 5px rgba(255, 102, 163, 0.5));
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .static-text {
+            font-size: 4.5rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .changing-text-container {
+            height: 120px;
+            position: relative;
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .changing-text {
+            font-size: 4rem;
+            font-weight: bold;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+            color: #b03060;
+        }
+        
+        .changing-text.active {
+            opacity: 1;
+        }
+        
+        .footer-text {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .heart {
+            color: #ff3366;
+            font-size: 2rem;
+            margin: 0 5px;
+            display: inline-block;
+            animation: heartbeat 1.2s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .static-text {
+                font-size: 3rem;
+            }
+            
+            .changing-text {
+                font-size: 2.8rem;
+            }
+            
+            .footer-text {
+                font-size: 2.5rem;
+            }
+            
+            .changing-text-container {
+                height: 100px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .static-text {
+                font-size: 2.2rem;
+            }
+            
+            .changing-text {
+                font-size: 2rem;
+            }
+            
+            .footer-text {
+                font-size: 1.8rem;
+            }
+            
+            .changing-text-container {
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="petals-container" id="petals-container"></div>
+    
+    <div class="container">
+        <div class="static-text">МАМ, ЗНАЙ<br>ТЫ - САМАЯ</div>
+        
+        <div class="changing-text-container">
+            <div id="changing-text" class="changing-text">ЛУЧШАЯ</div>
+        </div>
+        
+        <div class="footer-text">МАМА НА СВЕТЕ <span class="heart">❤</span></div>
+    </div>
+
+    <script>
+        // Массив с 50 заготовками для мамы
+        const messages = [
+            "ЛУЧШАЯ",
+            "ЛЮБИМАЯ",
+            "ДОБРАЯ",
+            "НЕЖНАЯ",
+            "ЗАБОТЛИВАЯ",
+            "МУДРАЯ",
+            "ПРЕКРАСНАЯ",
+            "УМНАЯ",
+            "ТЕРПЕЛИВАЯ",
+            "ПОНИМАЮЩАЯ",
+            "ВНИМАТЕЛЬНАЯ",
+            "ОТЗЫВЧИВАЯ",
+            "КРАСИВАЯ",
+            "ЛАСКОВАЯ",
+            "НЕПОВТОРИМАЯ",
+            "УНИКАЛЬНАЯ",
+            "САМАЯ ДОРОГАЯ",
+            "САМАЯ МИЛАЯ",
+            "САМАЯ НЕЖНАЯ",
+            "САМАЯ ДОБРАЯ",
+            "САМАЯ ЗАБОТЛИВАЯ",
+            "САМАЯ ПОНИМАЮЩАЯ",
+            "САМАЯ ВНИМАТЕЛЬНАЯ",
+            "САМАЯ ОТЗЫВЧИВАЯ",
+            "САМАЯ КРАСИВАЯ",
+            "САМАЯ ЛАСКОВАЯ",
+            "САМАЯ МУДРАЯ",
+            "САМАЯ ТЕРПЕЛИВАЯ",
+            "САМАЯ ПРЕКРАСНАЯ",
+            "САМАЯ УМНАЯ",
+            "НЕЗАМЕНИМАЯ",
+            "БЕСЦЕННАЯ",
+            "ОСОБЕННАЯ",
+            "ИСКЛЮЧИТЕЛЬНАЯ",
+            "ВЕЛИКОЛЕПНАЯ",
+            "ЧУДЕСНАЯ",
+            "ВОЛШЕБНАЯ",
+            "ЗАМЕЧАТЕЛЬНАЯ",
+            "ПОТРЯСАЮЩАЯ",
+            "ВДОХНОВЛЯЮЩАЯ",
+            "ЛУЧЕЗАРНАЯ",
+            "СИЯЮЩАЯ",
+            "СВЕТЛАЯ",
+            "ТЕПЛАЯ",
+            "ГОРЯЧО ЛЮБИМАЯ",
+            "СЕРДЕЧНО ЛЮБИМАЯ",
+            "БЕСКОНЕЧНО ЛЮБИМАЯ",
+            "БЕЗУСЛОВНО ЛЮБИМАЯ",
+            "ИСКРЕННЕ ЛЮБИМАЯ",
+            "НАВСЕГДА ЛЮБИМАЯ"
+        ];
+        
+        const textElement = document.getElementById('changing-text');
+        let currentIndex = 0;
+        
+        function changeMessage() {
+            // Плавное исчезновение текста (1.5 секунды)
+            textElement.classList.remove('active');
+            
+            // После исчезновения меняем текст и плавно показываем (1.5 секунды)
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % messages.length;
+                textElement.textContent = messages[currentIndex];
+                textElement.classList.add('active');
+            }, 1500);
+        }
+        
+        // Инициализация первого сообщения
+        textElement.textContent = messages[currentIndex];
+        textElement.classList.add('active');
+        
+        // Меняем сообщение каждые 3 секунды
+        setInterval(changeMessage, 3000);
+        
+        // Создание падающих лепестков роз
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            
+            // Случайная позиция по горизонтали
+            const left = Math.random() * 100;
+            petal.style.left = `${left}vw`;
+            
+            // Разные размеры лепестков
+            const size = 15 + Math.random() * 15;
+            petal.style.width = `${size}px`;
+            petal.style.height = `${size * 1.5}px`;
+            
+            // Разная скорость падения
+            const duration = 8 + Math.random() * 12;
+            petal.style.animationDuration = `${duration}s`;
+            
+            // Разная задержка начала анимации
+            const delay = Math.random() * 5;
+            petal.style.animationDelay = `${delay}s`;
+            
+            // Разные оттенки розового
+            const hue = 320 + Math.random() * 40;
+            const saturation = 70 + Math.random() * 30;
+            const lightness = 50 + Math.random() * 20;
+            petal.style.background = `linear-gradient(to right, hsl(${hue}, ${saturation}%, ${lightness}%), hsl(${hue-20}, ${saturation}%, ${lightness-10}%))`;
+            
+            // Добавляем лепесток в контейнер
+            document.getElementById('petals-container').appendChild(petal);
+            
+            // Удаляем лепесток после завершения анимации
+            setTimeout(() => {
+                petal.remove();
+            }, (duration + delay) * 1000);
+        }
+        
+        // Создаем лепестки каждые 300ms
+        setInterval(createPetal, 300);
+        
+        // Создаем несколько лепестков сразу при загрузке
+        for (let i = 0; i < 15; i++) {
+            setTimeout(() => createPetal(), i * 200);
+        }
+    </script>
+</body>
+</html>
