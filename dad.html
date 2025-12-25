@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для папы - самый лучший!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #a8d8ff 0%, #c6e2ff 100%); /* Голубой градиентный фон */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: #1a3c5e;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .leaves-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .leaf {
+            position: absolute;
+            top: -50px;
+            width: 25px;
+            height: 25px;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 3px rgba(0, 60, 128, 0.3));
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+        
+        /* Разные формы листьев */
+        .leaf.type1 {
+            background: linear-gradient(45deg, #2c5aa0, #4a7bc1);
+            border-radius: 50% 0 50% 0;
+            transform: rotate(45deg);
+        }
+        
+        .leaf.type2 {
+            background: linear-gradient(45deg, #1e3a8a, #3b5ca8);
+            border-radius: 0 50% 0 50%;
+            transform: rotate(-45deg);
+        }
+        
+        .leaf.type3 {
+            background: linear-gradient(45deg, #0d2b5c, #2c4a7a);
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .leaf.type4 {
+            background: linear-gradient(45deg, #4a7bc1, #6a9ae1);
+            border-radius: 0 0 50% 50%;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 60, 128, 0.2);
+            border: 2px solid rgba(42, 82, 152, 0.3);
+        }
+        
+        .static-text {
+            font-size: 4.5rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            color: #1a3c5e;
+        }
+        
+        .changing-text-container {
+            height: 120px;
+            position: relative;
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .changing-text {
+            font-size: 4rem;
+            font-weight: bold;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+            color: #2a5298;
+        }
+        
+        .changing-text.active {
+            opacity: 1;
+        }
+        
+        .footer-text {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            color: #1a3c5e;
+        }
+        
+        .star {
+            color: #ffcc00;
+            font-size: 2.5rem;
+            margin: 0 10px;
+            display: inline-block;
+            animation: twinkle 1.5s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { 
+                transform: scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% { 
+                transform: scale(1.2) rotate(10deg);
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+            }
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .static-text {
+                font-size: 3rem;
+            }
+            
+            .changing-text {
+                font-size: 2.8rem;
+            }
+            
+            .footer-text {
+                font-size: 2.5rem;
+            }
+            
+            .changing-text-container {
+                height: 100px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .static-text {
+                font-size: 2.2rem;
+            }
+            
+            .changing-text {
+                font-size: 2rem;
+            }
+            
+            .footer-text {
+                font-size: 1.8rem;
+            }
+            
+            .changing-text-container {
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="leaves-container" id="leaves-container"></div>
+    
+    <div class="container">
+        <div class="static-text">ПАП, ЗНАЙ<br>ТЫ - САМЫЙ</div>
+        
+        <div class="changing-text-container">
+            <div id="changing-text" class="changing-text">ЛУЧШИЙ</div>
+        </div>
+        
+        <div class="footer-text">ПАПА НА СВЕТЕ <span class="star">★</span></div>
+    </div>
+
+    <script>
+        // Массив с 50 заготовками для папы
+        const messages = [
+            "ЛУЧШИЙ",
+            "ЛЮБИМЫЙ",
+            "СИЛЬНЫЙ",
+            "МУДРЫЙ",
+            "ЗАБОТЛИВЫЙ",
+            "НАДЕЖНЫЙ",
+            "ОТВАЖНЫЙ",
+            "УМНЫЙ",
+            "ТЕРПЕЛИВЫЙ",
+            "ПОНИМАЮЩИЙ",
+            "ВНИМАТЕЛЬНЫЙ",
+            "ОТЗЫВЧИВЫЙ",
+            "СМЕЛЫЙ",
+            "РЕШИТЕЛЬНЫЙ",
+            "НЕПОВТОРИМЫЙ",
+            "УНИКАЛЬНЫЙ",
+            "САМЫЙ ДОРОГОЙ",
+            "САМЫЙ МУДРЫЙ",
+            "САМЫЙ СИЛЬНЫЙ",
+            "САМЫЙ ДОБРЫЙ",
+            "САМЫЙ ЗАБОТЛИВЫЙ",
+            "САМЫЙ ПОНИМАЮЩИЙ",
+            "САМЫЙ ВНИМАТЕЛЬНЫЙ",
+            "САМЫЙ ОТЗЫВЧИВЫЙ",
+            "САМЫЙ НАДЕЖНЫЙ",
+            "САМЫЙ ОТВАЖНЫЙ",
+            "САМЫЙ МУЖЕСТВЕННЫЙ",
+            "САМЫЙ ТЕРПЕЛИВЫЙ",
+            "САМЫЙ ВЕЛИКОЛЕПНЫЙ",
+            "САМЫЙ УМНЫЙ",
+            "НЕЗАМЕНИМЫЙ",
+            "БЕСЦЕННЫЙ",
+            "ОСОБЕННЫЙ",
+            "ИСКЛЮЧИТЕЛЬНЫЙ",
+            "ВЕЛИКОЛЕПНЫЙ",
+            "ЧУДЕСНЫЙ",
+            "НАДЕЖНЫЙ",
+            "ЗАМЕЧАТЕЛЬНЫЙ",
+            "ПОТРЯСАЮЩИЙ",
+            "ВДОХНОВЛЯЮЩИЙ",
+            "МУЖЕСТВЕННЫЙ",
+            "СИЛЬНЫЙ ДУХОМ",
+            "СВЕТЛЫЙ",
+            "ТЕПЛЫЙ",
+            "ГОРЯЧО ЛЮБИМЫЙ",
+            "СЕРДЕЧНО ЛЮБИМЫЙ",
+            "БЕСКОНЕЧНО ЛЮБИМЫЙ",
+            "БЕЗУСЛОВНО ЛЮБИМЫЙ",
+            "ИСКРЕННЕ ЛЮБИМЫЙ",
+            "НАВСЕГДА ЛЮБИМЫЙ"
+        ];
+        
+        const textElement = document.getElementById('changing-text');
+        let currentIndex = 0;
+        
+        function changeMessage() {
+            // Плавное исчезновение текста (1.5 секунды)
+            textElement.classList.remove('active');
+            
+            // После исчезновения меняем текст и плавно показываем (1.5 секунды)
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % messages.length;
+                textElement.textContent = messages[currentIndex];
+                textElement.classList.add('active');
+            }, 1500);
+        }
+        
+        // Инициализация первого сообщения
+        textElement.textContent = messages[currentIndex];
+        textElement.classList.add('active');
+        
+        // Меняем сообщение каждые 3 секунды
+        setInterval(changeMessage, 3000);
+        
+        // Создание падающих листьев (символических для мужской темы)
+        function createLeaf() {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            
+            // Выбор типа листа (4 разных формы)
+            const leafType = Math.floor(Math.random() * 4) + 1;
+            leaf.classList.add(`type${leafType}`);
+            
+            // Случайная позиция по горизонтали
+            const left = Math.random() * 100;
+            leaf.style.left = `${left}vw`;
+            
+            // Разные размеры листьев
+            const size = 15 + Math.random() * 20;
+            leaf.style.width = `${size}px`;
+            leaf.style.height = `${size}px`;
+            
+            // Разная скорость падения
+            const duration = 10 + Math.random() * 15;
+            leaf.style.animationDuration = `${duration}s`;
+            
+            // Разная задержка начала анимации
+            const delay = Math.random() * 5;
+            leaf.style.animationDelay = `${delay}s`;
+            
+            // Добавляем лист в контейнер
+            document.getElementById('leaves-container').appendChild(leaf);
+            
+            // Удаляем лист после завершения анимации
+            setTimeout(() => {
+                leaf.remove();
+            }, (duration + delay) * 1000);
+        }
+        
+        // Создаем листья каждые 400ms
+        setInterval(createLeaf, 400);
+        
+        // Создаем несколько листьев сразу при загрузке
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => createLeaf(), i * 300);
+        }
+        
+        // Добавим немного динамики звезде
+        const starElement = document.querySelector('.star');
+        setInterval(() => {
+            const colors = ['#ffcc00', '#ffaa00', '#ffff00', '#ffdd44'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            starElement.style.color = randomColor;
+        }, 1000);
+    </script>
+</body>
+</html>
